@@ -6,12 +6,13 @@ import Card from 'react-bootstrap/Card';
 import { TComment, TPost } from "../../services/types";
 import { FC } from "react";
 import { fetchComments } from '../../services/actions';
+import Accordion from 'react-bootstrap/Accordion';
 
 type TPostProps = {
   post: TPost
 }
 
-const Post: FC<TPostProps> = ({post}) => {
+const Post: FC<TPostProps> = ({ post }) => {
 
   const [commentsIspen, setCommentsIsOpen] = useState(false);
 
@@ -21,25 +22,34 @@ const Post: FC<TPostProps> = ({post}) => {
   const handleCommets = () => {
     setCommentsIsOpen(!commentsIspen);
 
-    if(!commentsIspen) {
+    if (!commentsIspen) {
       dispatch(fetchComments());
     }
-  
+
   };
 
-  return(
-    <Card>
+  return (
+    <Card className='mb-4'>
       <Card.Body>
-        <img src={avatar} alt="user" />
-        <p>{post.title}</p>
-        <p>{post.body}</p>
-        <Button onClick={handleCommets}>Комментарии</Button>
-
-        {commentsIspen && comments && comments.filter((item:TComment) => item.postId === post.id).map((item: TComment) => (
-          <div key={item.id}>
-            <p>{item.email}</p>
-            <p>{item.body}</p>
+        <div className='d-flex gap-3'>
+          <img src={avatar} alt="user"/>
+          <div>
+            <p className='fs-4 fw-bold'>{post.title}</p>
+            <p className='fs-7'>{post.body}</p>
           </div>
+        </div>
+
+        <Button className='mb-4' onClick={handleCommets}>Комментарии</Button>
+
+        {commentsIspen && comments && comments.filter((item: TComment) => item.postId === post.id).map((item: TComment) => (
+          <Accordion className='mb-4' key={item.id} defaultActiveKey="0">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>{item.email}</Accordion.Header>
+              <Accordion.Body>
+                  {item.body}
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
         ))}
 
       </Card.Body>
