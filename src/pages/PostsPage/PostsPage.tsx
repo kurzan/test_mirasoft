@@ -4,6 +4,7 @@ import { fetchPosts } from '../../services/actions';
 import Post from '../../components/Post/Post';
 import { TPost } from '../../services/types';
 import Pagination from 'react-bootstrap/Pagination';
+import { Spinner } from 'react-bootstrap';
 
 const PostsPage = () => {
 
@@ -16,12 +17,13 @@ const PostsPage = () => {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  const posts = useSelector((state: any) => state.posts);
+  const posts = useSelector((state: any) => state.posts.post);
+  const isLoading = useSelector((state: any) => state.posts.isLoading);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
-  const currentPosts = posts.data && posts.data.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = posts && posts.slice(indexOfFirstPost, indexOfLastPost);
 
   const handlePageChange = (page:number) => {
     setCurrentPage(page);
@@ -30,13 +32,14 @@ const PostsPage = () => {
   return (
     <>
       <div>
-        {currentPosts && currentPosts.map((post: TPost) => (
+        {!isLoading && currentPosts && currentPosts.map((post: TPost) => (
           <Post key={post.id} post={post} />
         ))}
+        {isLoading && <Spinner animation="border" />}
       </div>
       
       {currentPosts && <Pagination>
-        {Array.from({ length: Math.ceil(posts.data.length / postsPerPage) }, (_, index) => index + 1).map((page) => (
+        {Array.from({ length: Math.ceil(posts.length / postsPerPage) }, (_, index) => index + 1).map((page) => (
           <Pagination.Item key={page} active={page === currentPage} onClick={() => handlePageChange(page)}>
             {page}
           </Pagination.Item>

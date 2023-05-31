@@ -25,8 +25,9 @@ const delay = () => new Promise((resolve) => {
 function* getPostsSaga() {
   try {
     yield put(setLoading(true));
-    const posts = yield call(fetchPosts);
-    yield put(setPosts(posts));
+    yield delay();
+    const { data } = yield call(fetchPosts);
+    yield put(setPosts(data));
     yield put(setLoading(false));
   } catch (error) {
     console.log('Error fetching posts:', error);
