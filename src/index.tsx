@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { createStore, applyMiddleware, compose  } from 'redux';
+import { BrowserRouter, Route, Routes} from "react-router-dom";
+import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './services/reducers';
 import rootSaga from './services/sagas/sagas';
+import Layout from './pages/Layout/Layout';
+import PostsPage from './pages/PostsPage/PostsPage';
+import UserPage from './pages/UserPage/UserPage';
+import AboutMe from './pages/AboutMe/AboutMe';
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -28,9 +30,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<PostsPage/>}/>
+            <Route path='users/:id' element={<UserPage/>}/>
+            <Route path='about-me' element={<AboutMe/>}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );
