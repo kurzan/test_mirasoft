@@ -1,11 +1,11 @@
-export type Post = {
+export type TPost = {
   userId: number,
   id: number,
   title: string,
   body: string,
 };
 
-export type Comment = {
+export type TComment = {
   postId: number,
   id: number,
   name: string,
@@ -13,7 +13,7 @@ export type Comment = {
   body: string,
 };
 
-export type User = {
+export type TUser = {
   id: number,
   name: string,
   username: string,

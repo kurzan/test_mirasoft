@@ -20,9 +20,9 @@ export const setUserPosts = (userPosts) => ({
   payload: userPosts,
 });
 
-export const setComments = (comments) => ({
+export const setComments = (payload) => ({
   type: ActionTypes.SET_COMMENTS,
-  payload: comments,
+  payload
 });
 
 export const fetchPosts = () => ({

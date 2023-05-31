@@ -52,8 +52,8 @@ function* getUserPostsSaga(action) {
 
 function* getCommentsSaga(action) {
   try {
-    const comments = yield call(fetchComments, action.payload);
-    yield put(setComments({ postId: action.payload, comments }));
+    const { data } = yield call(fetchComments, action.payload);
+    yield put(setComments(data));
   } catch (error) {
     console.log('Error fetching comments:', error);
   }

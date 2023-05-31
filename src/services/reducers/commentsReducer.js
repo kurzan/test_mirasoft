@@ -1,11 +1,16 @@
 import { ActionTypes } from '../constants';
 
-const initialState = {};
+const initialState = {
+  comments: [],
+};
 
 const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.SET_COMMENTS:
-      return { ...state, [action.payload.postId]: action.payload.comments };
+      return { 
+        ...state, 
+        comments: [...action.payload] 
+      };
     default:
       return state;
   }
