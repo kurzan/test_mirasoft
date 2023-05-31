@@ -7,6 +7,7 @@ import { TComment, TPost } from "../../services/types";
 import { FC } from "react";
 import { fetchComments } from '../../services/actions';
 import Accordion from 'react-bootstrap/Accordion';
+import Spinner from 'react-bootstrap/Spinner';
 
 type TPostProps = {
   post: TPost
@@ -17,7 +18,9 @@ const Post: FC<TPostProps> = ({ post }) => {
   const [commentsIspen, setCommentsIsOpen] = useState(false);
 
   const dispatch = useDispatch();
+
   const comments = useSelector((state: any) => state?.comments.comments);
+  const isLoading = useSelector((state: any) => state?.comments.isLoading);
 
   const handleCommets = () => {
     setCommentsIsOpen(!commentsIspen);
@@ -27,6 +30,10 @@ const Post: FC<TPostProps> = ({ post }) => {
     }
 
   };
+
+  useEffect(() => {
+    console.log(isLoading)
+  }, [isLoading])
 
   return (
     <Card className='mb-4'>
@@ -41,7 +48,14 @@ const Post: FC<TPostProps> = ({ post }) => {
 
         <Button className='mb-4' onClick={handleCommets}>Комментарии</Button>
 
-        {commentsIspen && comments && comments.filter((item: TComment) => item.postId === post.id).map((item: TComment) => (
+        
+
+
+        {commentsIspen && <div>
+
+          {isLoading && <Spinner animation="border" />}
+
+          {!isLoading && comments && comments.filter((item: TComment) => item.postId === post.id).map((item: TComment) => (
           <Accordion className='mb-4' key={item.id} defaultActiveKey="0">
             <Accordion.Item eventKey="0">
               <Accordion.Header>{item.email}</Accordion.Header>
@@ -51,6 +65,10 @@ const Post: FC<TPostProps> = ({ post }) => {
             </Accordion.Item>
           </Accordion>
         ))}
+
+        </div>}
+
+
 
       </Card.Body>
     </Card>

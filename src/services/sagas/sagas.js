@@ -6,6 +6,7 @@ import {
   setUserPosts,
   setComments,
   setLoading,
+  setCommentsLoading
 } from '../actions';
 import {
   fetchPosts,
@@ -13,6 +14,13 @@ import {
   fetchUserPosts,
   fetchComments,
 } from '../api';
+
+
+const delay = () => new Promise((resolve) => {
+  setTimeout(resolve, 500);
+});
+
+
 
 function* getPostsSaga() {
   try {
@@ -51,7 +59,10 @@ function* getUserPostsSaga(action) {
 }
 
 function* getCommentsSaga(action) {
+
   try {
+    yield put(setCommentsLoading(true));
+    yield delay();
     const { data } = yield call(fetchComments, action.payload);
     yield put(setComments(data));
   } catch (error) {

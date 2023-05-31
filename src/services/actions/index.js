@@ -25,6 +25,11 @@ export const setComments = (payload) => ({
   payload
 });
 
+export const setCommentsLoading = (isLoading) => ({
+  type: ActionTypes.SET_COMMENTS_LOADING,
+  payload: isLoading,
+});
+
 export const fetchPosts = () => ({
   type: ActionTypes.FETCH_POSTS,
 });
