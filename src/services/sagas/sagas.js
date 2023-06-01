@@ -34,8 +34,8 @@ function* getPostsSaga() {
 function* getUserSaga(action) {
   try {
     yield put(setLoading(true));
-    const user = yield call(fetchData, `users/${action.payload}`);
-    yield put(setUserInfo(user));
+    const { data } = yield call(fetchData, `users/${action.payload}`);
+    yield put(setUserInfo(data));
     yield put(setLoading(false));
   } catch (error) {
     console.log('Error fetching user info:', error);
@@ -46,8 +46,8 @@ function* getUserSaga(action) {
 function* getUserPostsSaga(action) {
   try {
     yield put(setLoading(true));
-    const posts = yield call(fetchData, `posts?userId=${action.payload}`);
-    yield put(setUserPosts(posts));
+    const { data } = yield call(fetchData, `posts?userId=${action.payload}`);
+    yield put(setUserPosts(data));
     yield put(setLoading(false));
   } catch (error) {
     console.log('Error fetching user posts:', error);

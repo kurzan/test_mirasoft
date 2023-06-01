@@ -34,10 +34,6 @@ const Post: FC<TPostProps> = ({ post }) => {
 
   };
 
-  useEffect(() => {
-    console.log(post)
-  }, [post])
-
   return (
     <Card className='mb-4'>
       <Card.Body>
