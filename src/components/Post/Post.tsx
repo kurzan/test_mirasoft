@@ -39,7 +39,7 @@ const Post: FC<TPostProps> = ({ post, pic = true }) => {
     <Card className='mb-4'>
       <Card.Body>
         <div className='d-flex gap-3'>
-          {pic && <img onClick={() => navigate(`users/${post.userId}`)} src={avatar} alt="user"/>}
+          {pic && <img style={{cursor: "pointer"}} onClick={() => navigate(`users/${post.userId}`)} src={avatar} alt="user"/>}
           <div>
             <p className='fs-4 fw-bold'>{post.title}</p>
             <p className='fs-7'>{post.body}</p>
@@ -62,11 +62,7 @@ const Post: FC<TPostProps> = ({ post, pic = true }) => {
             </Accordion.Item>
           </Accordion>
         ))}
-
         </div>}
-
-
-
       </Card.Body>
     </Card>
   )

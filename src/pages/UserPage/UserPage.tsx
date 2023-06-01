@@ -7,12 +7,15 @@ import { TPost, TUser } from "../../services/types";
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import UserCard from "../../components/UserCard/UserCard";
+import { Spinner } from 'react-bootstrap';
 
 const UserPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const isLoading = useSelector((state: any) => state.posts.isLoading);
 
   useEffect(() => {
     dispatch(fetchUserPosts(id));
@@ -34,10 +37,11 @@ const UserPage = () => {
   return (
     <>
       <Button className="mt-4" onClick={() => navigate(-1)}>Назад</Button>
-      <UserCard username={userInfo.username} email={userInfo.email} phone={userInfo.phone} website={userInfo.website} />
+      {isLoading ? <Spinner animation='border' /> : <UserCard username={userInfo.username} email={userInfo.email} phone={userInfo.phone} website={userInfo.website} />}
       <div className="d-flex flex-column mt-4">
       <p className='fs-4 fw-bold'>Посты пользователя</p>
-        {userPosts && userPosts.map((post: TPost) => <Post pic={false} key={post.id} post={post} />)}
+        {isLoading && <Spinner animation='border' />}
+        {!isLoading && userPosts && userPosts.map((post: TPost) => <Post pic={false} key={post.id} post={post} />)}
       </div>
     </>
 
