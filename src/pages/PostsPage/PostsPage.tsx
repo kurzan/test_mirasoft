@@ -12,6 +12,8 @@ const PostsPage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState('');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const postsPerPage = 5;
 
   const dispatch = useDispatch();
@@ -26,17 +28,34 @@ const PostsPage = () => {
     setCurrentPage(page);
   };
 
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    const [sortByField, sortOrderField] = value.split('_');
+    setSortBy(sortByField);
+    setSortOrder(sortOrderField === 'asc' ? 'asc' : 'desc');
+  };
+
   const filteredPosts = useMemo(() => {
     try {
       const search = searchParams.get('search') || '';
-      return posts.filter((post: TPost) => {
+      const sortedPosts = posts.slice().sort((a: TPost, b: TPost) => {
+        if (sortBy && typeof a[sortBy as keyof TPost] === 'string' && typeof b[sortBy as keyof TPost] === 'string') {
+          if (sortOrder === 'asc') {
+            return a[sortBy as keyof TPost] < b[sortBy as keyof TPost] ? -1 : 1;
+          } else {
+            return a[sortBy as keyof TPost] > b[sortBy as keyof TPost] ? -1 : 1;
+          }
+        }
+        return 0;
+      });
+      return sortedPosts.filter((post: TPost) => {
         const title = post.title?.toLowerCase() || '';
         return title.includes(search);
       });
     } catch (error) {
       return posts;
     }
-  }, [searchParams, posts]);
+  }, [searchParams, posts, sortBy, sortOrder]);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -47,6 +66,16 @@ const PostsPage = () => {
       <div className='mt-4'>
         <Search placeholder='Поиск по заголовку' setSearch={setSearchValue} />
         <p className='fs-4 fw-bold'>Список постов</p>
+
+        <div className='mb-3'>
+          <label htmlFor='sortSelect' className='form-label'>Сортировка:</label>
+          <select id='sortSelect' className='form-select' onChange={handleSortChange}>
+            <option value=''>Без сортировки</option>
+            <option value='title_asc'>По заголовку (возрастающая)</option>
+            <option value='title_desc'>По заголовку (убывающая)</option>
+          </select>
+        </div>
+
         {!isLoading && currentPosts.map((post: TPost) => (
           <Post key={post.id} post={post} />
         ))}
