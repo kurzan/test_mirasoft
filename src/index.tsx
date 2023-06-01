@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes} from "react-router-dom";
+import { HashRouter, BrowserRouter, Route, Routes} from "react-router-dom";
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -30,7 +30,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<PostsPage/>}/>
@@ -38,7 +38,7 @@ root.render(
             <Route path='about-me' element={<AboutMe/>}/>
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   </React.StrictMode>
 );

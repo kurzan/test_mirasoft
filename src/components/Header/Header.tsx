@@ -6,6 +6,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Nav from 'react-bootstrap/Nav';
 import UserCard from '../UserCard/UserCard';
 import photo from '../../images/kurz.jpg';
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
 
@@ -29,8 +30,8 @@ const Header = () => {
         <Offcanvas.Body>
           <UserCard width='100%' ava={photo} email='kurzanbl4@gmail.com' username='Михаил' />
           <Nav className="flex-column">
-            <Nav.Link href="/">Список постов</Nav.Link>
-            <Nav.Link href="/about-me">Обо мне</Nav.Link>
+            <NavLink to="/">Список постов</NavLink>
+            <NavLink to="about-me">Обо мне</NavLink>
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
