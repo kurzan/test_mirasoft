@@ -48,9 +48,6 @@ const Post: FC<TPostProps> = ({ post, pic = true }) => {
 
         <Button className='mb-4' onClick={handleCommets}>Комментарии</Button>
 
-        
-
-
         {commentsIspen && <div>
 
           {isLoading && <Spinner animation="border" />}

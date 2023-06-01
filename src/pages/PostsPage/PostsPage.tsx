@@ -14,7 +14,7 @@ const PostsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const postsPerPage = 5;
+  const postsPerPage = 10;
 
   const dispatch = useDispatch();
   const posts: TPost[] = useSelector((state: any) => state.posts.post);
@@ -65,16 +65,14 @@ const PostsPage = () => {
     <>
       <div className='mt-4'>
         <Search placeholder='Поиск по заголовку' setSearch={setSearchValue} />
-        <p className='fs-4 fw-bold'>Список постов</p>
-
-        <div className='mb-3'>
-          <label htmlFor='sortSelect' className='form-label'>Сортировка:</label>
+        <div className='mb-4 mt-4'>
           <select id='sortSelect' className='form-select' onChange={handleSortChange}>
             <option value=''>Без сортировки</option>
             <option value='title_asc'>По заголовку (возрастающая)</option>
             <option value='title_desc'>По заголовку (убывающая)</option>
           </select>
         </div>
+        <p className='fs-4 fw-bold'>Список постов</p>
 
         {!isLoading && currentPosts.map((post: TPost) => (
           <Post key={post.id} post={post} />
