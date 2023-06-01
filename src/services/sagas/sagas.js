@@ -9,10 +9,7 @@ import {
   setCommentsLoading
 } from '../actions';
 import {
-  fetchPosts,
-  fetchUser,
-  fetchUserPosts,
-  fetchComments,
+  fetchData
 } from '../api';
 
 
@@ -21,12 +18,11 @@ const delay = () => new Promise((resolve) => {
 });
 
 
-
 function* getPostsSaga() {
   try {
     yield put(setLoading(true));
     yield delay();
-    const { data } = yield call(fetchPosts);
+    const { data } = yield call(fetchData, 'posts');
     yield put(setPosts(data));
     yield put(setLoading(false));
   } catch (error) {
@@ -38,7 +34,7 @@ function* getPostsSaga() {
 function* getUserSaga(action) {
   try {
     yield put(setLoading(true));
-    const user = yield call(fetchUser, action.payload);
+    const user = yield call(fetchData, `users/${action.payload}`);
     yield put(setUserInfo(user));
     yield put(setLoading(false));
   } catch (error) {
@@ -50,7 +46,7 @@ function* getUserSaga(action) {
 function* getUserPostsSaga(action) {
   try {
     yield put(setLoading(true));
-    const posts = yield call(fetchUserPosts, action.payload);
+    const posts = yield call(fetchData, `posts?userId=${action.payload}`);
     yield put(setUserPosts(posts));
     yield put(setLoading(false));
   } catch (error) {
@@ -64,7 +60,7 @@ function* getCommentsSaga(action) {
   try {
     yield put(setCommentsLoading(true));
     yield delay();
-    const { data } = yield call(fetchComments, action.payload);
+    const { data } = yield call(fetchData, 'comments');
     yield put(setComments(data));
   } catch (error) {
     console.log('Error fetching comments:', error);

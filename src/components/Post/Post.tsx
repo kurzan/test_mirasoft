@@ -8,6 +8,7 @@ import { FC } from "react";
 import { fetchComments } from '../../services/actions';
 import Accordion from 'react-bootstrap/Accordion';
 import Spinner from 'react-bootstrap/Spinner';
+import { useNavigate } from "react-router-dom";
 
 type TPostProps = {
   post: TPost
@@ -18,6 +19,8 @@ const Post: FC<TPostProps> = ({ post }) => {
   const [commentsIspen, setCommentsIsOpen] = useState(false);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const comments = useSelector((state: any) => state?.comments.comments);
   const isLoading = useSelector((state: any) => state?.comments.isLoading);
@@ -32,14 +35,14 @@ const Post: FC<TPostProps> = ({ post }) => {
   };
 
   useEffect(() => {
-    console.log(isLoading)
-  }, [isLoading])
+    console.log(post)
+  }, [post])
 
   return (
     <Card className='mb-4'>
       <Card.Body>
         <div className='d-flex gap-3'>
-          <img src={avatar} alt="user"/>
+          <img onClick={() => navigate(`users/${post.userId}`)} src={avatar} alt="user"/>
           <div>
             <p className='fs-4 fw-bold'>{post.title}</p>
             <p className='fs-7'>{post.body}</p>

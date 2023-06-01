@@ -2,18 +2,16 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/';
 
-export const fetchPosts = async () => {
-  return await axios.get(`posts`);
-};
 
-export const fetchComments = async () => {
-  return await axios.get(`comments`);
-};
-
-export const fetchUser = async (userId) => {
-  return await axios.get(`users/${userId}`);
-};
-
-export const fetchUserPosts = async (id) => {
-  return await axios.get(`posts?userId=${id}`);
+export const fetchData = async (url) => {
+  try {
+    const response = await axios.get(url);
+    if (response.status === 200) {
+      return response;
+    } else {
+      throw new Error('Request failed with status code ' + response.status);
+    }
+  } catch (error) {
+    throw new Error('Error fetching posts: ' + error.message);
+  }
 };
