@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/test_mirasoft/static/css/main.e6c13ad2.css",
+    "main.js": "/test_mirasoft/static/js/main.8f49ff13.js",
+    "static/js/787.f587e8d5.chunk.js": "/test_mirasoft/static/js/787.f587e8d5.chunk.js",
+    "static/media/kurz.jpg": "/test_mirasoft/static/media/kurz.55b19a6384a62365fd17.jpg",
+    "static/media/avatar.svg": "/test_mirasoft/static/media/avatar.fb98cf13a87225efe558669bdc541ac7.svg",
+    "index.html": "/test_mirasoft/index.html",
+    "main.e6c13ad2.css.map": "/test_mirasoft/static/css/main.e6c13ad2.css.map",
+    "main.8f49ff13.js.map": "/test_mirasoft/static/js/main.8f49ff13.js.map",
+    "787.f587e8d5.chunk.js.map": "/test_mirasoft/static/js/787.f587e8d5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.8f49ff13.js"
+  ]
+}
