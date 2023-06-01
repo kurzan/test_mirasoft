@@ -7,8 +7,8 @@ type TUserProps = Partial<TUser>;
 
 const UserCard: FC<TUserProps> = ({username, email, phone, website}) => {
  return(
-  <Card style={{ width: '25rem', margin: '0 auto',}}>
-  <Card.Img variant="top" src={avatar} width={150} height={150} />
+  <Card style={{ width: '25rem', margin: '0 auto'}} className='mt-4'>
+  <Card.Img className='mt-4' variant="top" src={avatar} width={150} height={150} />
   <Card.Body style={{ textAlign: 'center' }}>
     <Card.Title>{username}</Card.Title>
     <Card.Text>Email: {email}</Card.Text>

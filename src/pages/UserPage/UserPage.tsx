@@ -31,13 +31,16 @@ const UserPage = () => {
   }, [dispatch, userInfo]);
 
 
-  return(
-   <div>
-    <Button onClick={() => navigate(-1)}>Назад</Button>
-    <UserCard username={userInfo.username} email={userInfo.email} phone={userInfo.phone} website={userInfo.website} />
-    {userPosts && userPosts.map((post: TPost) => <Post key={post.id} post={post}/>)}
-   </div>
+  return (
+    <>
+      <Button className="mt-4" onClick={() => navigate(-1)}>Назад</Button>
+      <UserCard username={userInfo.username} email={userInfo.email} phone={userInfo.phone} website={userInfo.website} />
+      <div className="d-flex flex-column mt-4">
+        {userPosts && userPosts.map((post: TPost) => <Post pic={false} key={post.id} post={post} />)}
+      </div>
+    </>
+
   )
- }
- 
- export default UserPage;
+}
+
+export default UserPage;

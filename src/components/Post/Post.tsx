@@ -11,10 +11,11 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from "react-router-dom";
 
 type TPostProps = {
-  post: TPost
+  post: TPost,
+  pic?: boolean
 }
 
-const Post: FC<TPostProps> = ({ post }) => {
+const Post: FC<TPostProps> = ({ post, pic = true }) => {
 
   const [commentsIspen, setCommentsIsOpen] = useState(false);
 
@@ -38,7 +39,7 @@ const Post: FC<TPostProps> = ({ post }) => {
     <Card className='mb-4'>
       <Card.Body>
         <div className='d-flex gap-3'>
-          <img onClick={() => navigate(`users/${post.userId}`)} src={avatar} alt="user"/>
+          {pic && <img onClick={() => navigate(`users/${post.userId}`)} src={avatar} alt="user"/>}
           <div>
             <p className='fs-4 fw-bold'>{post.title}</p>
             <p className='fs-7'>{post.body}</p>
